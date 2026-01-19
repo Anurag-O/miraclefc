@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miracle FC - Season 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --barca-blue: #004D98;
+            --barca-red: #A50044;
+            --barca-gold: #EDBB00;
+            --dark-navy: #001A3D;
+            --light-bg: #F7F7F7;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--barca-blue) 0%, var(--dark-navy) 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Pattern */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(165, 0, 68, 0.03) 10px,
+                    rgba(165, 0, 68, 0.03) 20px
+                );
+            z-index: -1;
+            animation: slidePattern 20s linear infinite;
+        }
+
+        @keyframes slidePattern {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(20px) translateY(20px); }
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(180deg, var(--barca-blue) 0%, var(--barca-red) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(237, 187, 0, 0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            animation: titleEntry 1s ease-out;
+        }
+
+        @keyframes titleEntry {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .season-tag {
+            display: inline-block;
+            background: var(--barca-gold);
+            color: var(--dark-navy);
+            padding: 0.5rem 2rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(237, 187, 0, 0.4);
+            animation: tagEntry 1s ease-out 0.3s both;
+        }
+
+        @keyframes tagEntry {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Section Styles */
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(237, 187, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: sectionFadeIn 0.8s ease-out both;
+        }
+
+        @keyframes sectionFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.4s; }
+        .section:nth-child(4) { animation-delay: 0.6s; }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--barca-gold);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 3px solid var(--barca-red);
+            padding-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Stats Overview */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--barca-red) 0%, var(--barca-blue) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid var(--barca-gold);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(237, 187, 0, 0.4);
+        }
+
+        .stat-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--barca-gold);
+            display: block;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        /* Groups Layout */
+        .groups-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .group-card {
+            background: rgba(0, 77, 152, 0.3);
+            border: 3px solid var(--barca-gold);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .group-card:hover {
+            background: rgba(0, 77, 152, 0.5);
+            transform: scale(1.03);
+        }
+
+        .group-header {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--barca-gold);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .player-list {
+            list-style: none;
+        }
+
+        .player-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.8rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--barca-red);
+        }
+
+        .player-item:hover {
+            background: rgba(237, 187, 0, 0.2);
+            transform: translateX(10px);
+            border-left-color: var(--barca-gold);
+        }
+
+        .player-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .player-score {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--barca-gold);
+        }
+
+        .group-total {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--barca-gold);
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        /* Top Scorers */
+        .scorers-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .scorer-row {
+            background: linear-gradient(90deg, rgba(165, 0, 68, 0.3) 0%, rgba(0, 77, 152, 0.3) 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
+            align-items: center;
+            gap: 1.5rem;
+            border-left: 5px solid var(--barca-gold);
+            transition: all 0.3s ease;
+        }
+
+        .scorer-row:hover {
+            background: linear-gradient(90deg, rgba(165, 0, 68, 0.5) 0%, rgba(0, 77, 152, 0.5) 100%);
+            transform: translateX(10px);
+        }
+
+        .scorer-row.top-3 {
+            border-left-width: 8px;
+        }
+
+        .scorer-rank {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--barca-gold);
+            text-align: center;
+        }
+
+        .scorer-rank.rank-1 { font-size: 3rem; color: #FFD700; }
+        .scorer-rank.rank-2 { font-size: 2.8rem; color: #C0C0C0; }
+        .scorer-rank.rank-3 { font-size: 2.6rem; color: #CD7F32; }
+
+        .scorer-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .scorer-goals {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--barca-gold);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+        }
+
+        /* Matches */
+        .matches-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .match-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid rgba(237, 187, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .match-card:hover {
+            border-color: var(--barca-gold);
+            background: rgba(0, 0, 0, 0.5);
+            transform: scale(1.02);
+        }
+
+        .match-team {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            flex: 1;
+            text-align: center;
+        }
+
+        .match-team.home { color: var(--barca-gold); }
+        .match-team.away { color: #fff; }
+
+        .match-score {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--barca-red);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            min-width: 120px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(165, 0, 68, 0.5);
+        }
+
+        /* Results Summary */
+        .results-summary {
+            background: linear-gradient(135deg, rgba(165, 0, 68, 0.4) 0%, rgba(0, 77, 152, 0.4) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-stat-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--barca-gold);
+            display: block;
+        }
+
+        .result-stat-label {
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-navy);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+            border-top: 4px solid var(--barca-gold);
+        }
+
+        footer p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .scorer-row {
+                grid-template-columns: 50px 1fr auto;
+                gap: 1rem;
+            }
+
+            .match-team {
+                font-size: 1.2rem;
+            }
+
+            .match-score {
+                font-size: 2rem;
+                padding: 0.8rem 1.5rem;
+                min-width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+
+    <header>
+        <div class="header-content">
+            <h1>Miracle FC</h1>
+            <div class="season-tag">Season 1</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Stats Overview -->
+        <div class="section">
+            <h2 class="section-title">Tournament Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Total Matches</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">20</span>
+                    <span class="stat-label">Players</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">106</span>
+                    <span class="stat-label">Total Goals</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Groups -->
+        <div class="section">
+            <h2 class="section-title">Team Groups</h2>
+            <div class="groups-container">
+                <!-- Group A -->
+                <div class="group-card">
+                    <div class="group-header">Group A</div>
+                    <ul class="player-list">
+                        <li class="player-item">
+                            <span class="player-name">Ashish</span>
+                            <span class="player-score">9</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Vishnu</span>
+                            <span class="player-score">9</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Shyjal</span>
+                            <span class="player-score">8</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Anurag</span>
+                            <span class="player-score">7</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Hridhuraj</span>
+                            <span class="player-score">5</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Amal</span>
+                            <span class="player-score">3</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Vishnu (Pok)</span>
+                            <span class="player-score">3</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Sayanth</span>
+                            <span class="player-score">2</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Adhish</span>
+                            <span class="player-score">2</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Abhishek</span>
+                            <span class="player-score">1</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Manikuttan</span>
+                            <span class="player-score">1</span>
+                        </li>
+                    </ul>
+                    <div class="group-total">Total Goals: <span style="color: var(--barca-gold);">50</span></div>
+                </div>
+
+                <!-- Group B -->
+                <div class="group-card">
+                    <div class="group-header">Group B</div>
+                    <ul class="player-list">
+                        <li class="player-item">
+                            <span class="player-name">Abhith</span>
+                            <span class="player-score">18</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Ayush</span>
+                            <span class="player-score">11</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Sreedath</span>
+                            <span class="player-score">11</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Alekhu</span>
+                            <span class="player-score">5</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Sachi</span>
+                            <span class="player-score">5</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Karthik</span>
+                            <span class="player-score">3</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Adhi Raman</span>
+                            <span class="player-score">2</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Adwaith</span>
+                            <span class="player-score">1</span>
+                        </li>
+                        <li class="player-item">
+                            <span class="player-name">Dingan</span>
+                            <span class="player-score">0</span>
+                        </li>
+                    </ul>
+                    <div class="group-total">Total Goals: <span style="color: var(--barca-gold);">56</span></div>
+                </div>
+            </div>
+
+            <!-- Group Results -->
+            <div class="results-summary">
+                <div class="result-stat">
+                    <span class="result-stat-value">6</span>
+                    <span class="result-stat-label">Group A Wins</span>
+                </div>
+                <div class="result-stat">
+                    <span class="result-stat-value">4</span>
+                    <span class="result-stat-label">Group B Wins</span>
+                </div>
+                <div class="result-stat">
+                    <span class="result-stat-value">2</span>
+                    <span class="result-stat-label">Draws</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Scorers -->
+        <div class="section">
+            <h2 class="section-title">Top Scorers</h2>
+            <div class="scorers-grid">
+                <div class="scorer-row top-3">
+                    <div class="scorer-rank rank-1">1</div>
+                    <div class="scorer-name">Abhith</div>
+                    <div class="scorer-goals">18</div>
+                </div>
+                <div class="scorer-row top-3">
+                    <div class="scorer-rank rank-2">2</div>
+                    <div class="scorer-name">Ayush</div>
+                    <div class="scorer-goals">11</div>
+                </div>
+                <div class="scorer-row top-3">
+                    <div class="scorer-rank rank-3">3</div>
+                    <div class="scorer-name">Sreedath</div>
+                    <div class="scorer-goals">11</div>
+                </div>
+                <div class="scorer-row">
+                    <div class="scorer-rank">4</div>
+                    <div class="scorer-name">Ashish</div>
+                    <div class="scorer-goals">9</div>
+                </div>
+                <div class="scorer-row">
+                    <div class="scorer-rank">5</div>
+                    <div class="scorer-name">Vishnu</div>
+                    <div class="scorer-goals">9</div>
+                </div>
+                <div class="scorer-row">
+                    <div class="scorer-rank">6</div>
+                    <div class="scorer-name">Shyjal</div>
+                    <div class="scorer-goals">8</div>
+                </div>
+                <div class="scorer-row">
+                    <div class="scorer-rank">7</div>
+                    <div class="scorer-name">Anurag</div>
+                    <div class="scorer-goals">7</div>
+                </div>
+                <div class="scorer-row">
+                    <div class="scorer-rank">8</div>
+                    <div class="scorer-name">Alekhu</div>
+                    <div class="scorer-goals">5</div>
+                </div>
+                <div class="scorer-row">
+                    <div class="scorer-rank">9</div>
+                    <div class="scorer-name">Sachi</div>
+                    <div class="scorer-goals">5</div>
+                </div>
+                <div class="scorer-row">
+                    <div class="scorer-rank">10</div>
+                    <div class="scorer-name">Hridhuraj</div>
+                    <div class="scorer-goals">5</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Matches -->
+        <div class="section">
+            <h2 class="section-title">Match Results</h2>
+            <div class="matches-grid">
+                <div class="match-card">
+                    <div class="match-team home">Group A</div>
+                    <div class="match-score">5 - 3</div>
+                    <div class="match-team away">Group B</div>
+                </div>
+                <div class="match-card">
+                    <div class="match-team home">Group B</div>
+                    <div class="match-score">8 - 2</div>
+                    <div class="match-team away">Group A</div>
+                </div>
+                <div class="match-card">
+                    <div class="match-team home">Group A</div>
+                    <div class="match-score">6 - 6</div>
+                    <div class="match-team away">Group B</div>
+                </div>
+                <div class="match-card">
+                    <div class="match-team home">Group B</div>
+                    <div class="match-score">7 - 2</div>
+                    <div class="match-team away">Group A</div>
+                </div>
+                <div class="match-card">
+                    <div class="match-team home">Group A</div>
+                    <div class="match-score">6 - 3</div>
+                    <div class="match-team away">Group B</div>
+                </div>
+                <div class="match-card">
+                    <div class="match-team home">Group A</div>
+                    <div class="match-score">9 - 3</div>
+                    <div class="match-team away">Group B</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Miracle FC - Season 1 | Més que un club</p>
+    </footer>
+</body>
+</html>
